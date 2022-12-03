@@ -5,20 +5,13 @@ using System.Text;
 
 namespace FundamentosCSharpNetCore21.Entities
 {
-    class Student
+    class Student: PropertyBase
     {
-        public string Id { get; private set; }
-        public string FullName { get; set; }
         public List<Evaluation> Evaluations { get; set; }
-
-        public Student()
-        {
-            Id = GenerateGuid.GenerateId();
-        }
 
         public override string ToString()
         {
-            return $"Id: {Id}, FullName: {FullName}";
+            return $"Id: {Id}, Name: {Name}";
         }
     }
 }

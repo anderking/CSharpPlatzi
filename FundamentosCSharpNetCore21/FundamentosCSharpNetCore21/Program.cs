@@ -14,6 +14,7 @@ namespace FundamentosCSharpNetCore21
             SchoolEngine schoolEngine = new SchoolEngine();
             School school = schoolEngine.Initializer();
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
+            Console.WriteLine(school);
             Console.WriteLine("\n");
             // Printer.Beep(10000, cant: 10);
             // PrintCourseSchool(school);

@@ -6,17 +6,14 @@ using static FundamentosCSharpNetCore21.Entities.TypeWorkingDay;
 
 namespace FundamentosCSharpNetCore21.Entities
 {
-    class Course
+    class Course: PropertyBase
     {
-        public string Id { get; private set; }
-        public string Name { get; set; }
         public TypeWorkingDays TypeWorkingDays { get; set; }
         public List<Student> Students { get; set; }
         public List<Subject> Subjects { get; set; }
 
         public Course(string name, TypeWorkingDays typeWorkingDays)
         {
-            Id = GenerateGuid.GenerateId();
             Name = name;
             TypeWorkingDays = typeWorkingDays;
         }

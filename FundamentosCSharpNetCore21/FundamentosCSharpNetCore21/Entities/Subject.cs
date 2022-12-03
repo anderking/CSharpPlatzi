@@ -5,16 +5,8 @@ using System.Text;
 
 namespace FundamentosCSharpNetCore21.Entities
 {
-    class Subject
+    class Subject: PropertyBase
     {
-        public string Id { get; private set; }
-        public string Name { get; set; }
-
-        public Subject()
-        {
-            Id = GenerateGuid.GenerateId();
-        }
-
         public override string ToString()
         {
             return $"Id: {Id}, Name: {Name}";

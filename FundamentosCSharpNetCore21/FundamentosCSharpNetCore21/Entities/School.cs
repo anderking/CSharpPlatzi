@@ -5,10 +5,8 @@ using static FundamentosCSharpNetCore21.Entities.TypeSchool;
 
 namespace FundamentosCSharpNetCore21.Entities
 {
-    class School
+    class School: PropertyBase
     {
-        string name;
-        public string Name { get { return "Copia: " + name;  } set { name = value.ToUpper(); } }
         public int YearCreated { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
@@ -27,7 +25,7 @@ namespace FundamentosCSharpNetCore21.Entities
 
         public override string ToString()
         {
-            return$"Name: {Name}, YearCreated: {YearCreated}, Country: {Country}, City: {City}, TypeSchools: {TypeSchools}";
+            return$"Id: {Id}, Name: {Name.ToUpper()}, YearCreated: {YearCreated}, Country: {Country}, City: {City}, TypeSchools: {TypeSchools}";
         }
 
     }

@@ -70,7 +70,7 @@ namespace FundamentosCSharpNetCore21.App
             var studentList = from n1 in firstName
                               from n2 in firstName2
                               from a1 in lastName
-                              select new Student { FullName = $"{n1} {n2} {a1}" ,Evaluations = new List<Evaluation>() };
+                              select new Student { Name = $"{n1} {n2} {a1}" ,Evaluations = new List<Evaluation>() };
 
             return studentList.OrderBy((al) => al.Id).Take(cant).ToList();
         }
