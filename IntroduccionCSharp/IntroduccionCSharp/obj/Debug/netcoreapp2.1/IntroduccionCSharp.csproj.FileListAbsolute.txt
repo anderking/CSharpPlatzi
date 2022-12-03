@@ -1,0 +1,13 @@
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\bin\Debug\netcoreapp2.1\IntroduccionCSharp.deps.json
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\bin\Debug\netcoreapp2.1\IntroduccionCSharp.runtimeconfig.json
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\bin\Debug\netcoreapp2.1\IntroduccionCSharp.runtimeconfig.dev.json
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\bin\Debug\netcoreapp2.1\IntroduccionCSharp.dll
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\bin\Debug\netcoreapp2.1\IntroduccionCSharp.pdb
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.csproj.AssemblyReference.cache
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.AssemblyInfoInputs.cache
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.AssemblyInfo.cs
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.csproj.CoreCompileInputs.cache
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.dll
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.pdb
+C:\Users\Anderso\source\repos\IntroduccionCSharp\IntroduccionCSharp\obj\Debug\netcoreapp2.1\IntroduccionCSharp.genruntimeconfig.cache

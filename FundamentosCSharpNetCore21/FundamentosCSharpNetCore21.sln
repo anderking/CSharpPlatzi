@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33027.164
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundamentosCSharpNetCore21", "FundamentosCSharpNetCore21\FundamentosCSharpNetCore21.csproj", "{DDF21CC7-6ACB-48FE-81A9-6FF8DE054A4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDF21CC7-6ACB-48FE-81A9-6FF8DE054A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDF21CC7-6ACB-48FE-81A9-6FF8DE054A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDF21CC7-6ACB-48FE-81A9-6FF8DE054A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDF21CC7-6ACB-48FE-81A9-6FF8DE054A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30C8B90D-52D5-430C-8B2C-DAB3308504D6}
+	EndGlobalSection
+EndGlobal
