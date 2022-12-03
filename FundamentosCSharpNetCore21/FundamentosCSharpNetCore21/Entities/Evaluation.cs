@@ -13,7 +13,7 @@ namespace FundamentosCSharpNetCore21.Entities
 
         public override string ToString()
         {
-            return $"Id: {Id}, Name: {Name}, Note: {Note}";
+            return $"Name: {Name}, Note: {Note}";
         }
 
 

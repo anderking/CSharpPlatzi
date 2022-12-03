@@ -19,6 +19,32 @@ namespace FundamentosCSharpNetCore21
             // Printer.Beep(10000, cant: 10);
             // PrintCourseSchool(school);
             PrintCourseListSchool(school);
+            
+            Printer.WriteTitle("POLIMORFIMOS");
+            
+            Student student = new Student {Name = "Anderson Diaz"};
+            Console.WriteLine(student);
+            
+            // El polimorfimos me permite trata un objeto hijo como un objeto padre pero no al reves a menos que se haga un conversion implicita
+            PropertyBase studentFather = student;
+            Console.WriteLine(studentFather);
+            student = (Student) studentFather; // Conversion implicita
+            Console.WriteLine(student);
+
+            PropertyBase propertyBase = new PropertyBase {Name = "Anderson Diaz"};
+            // PropertyBase propertyBase = student;
+            Console.WriteLine(propertyBase);
+            
+            if (propertyBase is Student)
+            {
+                student = (Student) propertyBase;
+            }
+
+            student = propertyBase as Student;
+
+            Console.WriteLine(student);
+
+
             Console.ReadLine();
         }
 

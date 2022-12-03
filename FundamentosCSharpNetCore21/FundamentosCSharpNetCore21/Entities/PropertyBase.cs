@@ -5,7 +5,7 @@ using FundamentosCSharpNetCore21.Util;
 
 namespace FundamentosCSharpNetCore21.Entities
 {
-    class PropertyBase
+    public class PropertyBase
     {
         public string Id { get; private set; }
 
@@ -14,6 +14,11 @@ namespace FundamentosCSharpNetCore21.Entities
         public PropertyBase()
         {
             Id = GenerateGuid.GenerateId();
+        }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Name: {Name}";
         }
     }
 }
