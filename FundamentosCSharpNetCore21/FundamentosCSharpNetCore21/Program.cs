@@ -44,6 +44,11 @@ namespace FundamentosCSharpNetCore21
 
             Console.WriteLine(student);
 
+            var result = schoolEngine.GetPropertyBases();
+            
+            var dictmp = schoolEngine.GetDictionaryBase();
+
+            schoolEngine.PrinterDictionary(dictmp, true);
 
             Console.ReadLine();
         }
