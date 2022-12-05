@@ -96,13 +96,13 @@ namespace FundamentosCSharpNetCore21.App
 
             public void LoadEvaluations()
             {
+                  Random rnd = new Random();
                   foreach (var course in School.CourseList)
                   {
                         foreach (var student in course.Students)
                         {
                               foreach (var subject in course.Subjects)
                               {
-                                    Random rnd = new Random(System.Environment.TickCount);
                                     for (var i = 0; i < 5; i++)
                                     {
                                           Evaluation evaluation = new Evaluation
