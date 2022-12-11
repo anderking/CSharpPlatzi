@@ -25,6 +25,8 @@ namespace CategoryJobsEF.EFconfig
                 category.Property(p => p.Description).HasMaxLength(1000);
 
                 category.Property(p => p.CreatedDate);
+
+                category.Property(p => p.ModifedDate);
             });
 
             modelBuilder.Entity<Job>(job =>
@@ -41,6 +43,8 @@ namespace CategoryJobsEF.EFconfig
                 job.Property(p => p.Priority);
 
                 job.Property(p => p.CreatedDate);
+
+                job.Property(p => p.ModifedDate);
             });
         }
     }

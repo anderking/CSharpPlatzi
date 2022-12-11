@@ -19,6 +19,8 @@ namespace CategoryJobsEF.Models
 
         public DateTime CreatedDate { get; set; }
 
+        public DateTime ModifedDate { get; set; }
+
         public virtual Category Category { get; set; }
 
     }

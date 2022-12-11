@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CategoryJobsEF.EFconfig;
 using CategoryJobsEF.Models;
+using CategoryJobsEF.Services;
 
 namespace CategoryJobsEF.Controllers
 {
@@ -14,25 +15,25 @@ namespace CategoryJobsEF.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly EFconfigContext _context;
+        private readonly ICategoryService _service;
 
-        public CategoriesController(EFconfigContext context)
+        public CategoriesController(ICategoryService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<List<Category>>> GetAll()
         {
-            return await _context.Categories.ToListAsync();
+            return Ok(await _service.GetAll());
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(Guid id)
+        public async Task<ActionResult<Category>> Get(Guid id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            Category category = await _service.Get(id);
 
             if (category == null)
             {
@@ -42,67 +43,39 @@ namespace CategoryJobsEF.Controllers
             return category;
         }
 
+        // POST: api/Categories
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Category>> Post(Category body)
+        {
+            Category response = await _service.Save(body);
+            return Ok(response);
+        }
+
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(Guid id, Category category)
+        public async Task<IActionResult> Put(Guid id, Category body)
         {
-            if (id != category.Id)
+            if (id != body.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Categories
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
-        {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            Category response = await _service.Update(id, body);
+            return Ok(response);
         }
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            Category response = await _service.Delete(id);
+            if (response == null)
             {
                 return NotFound();
             }
-
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CategoryExists(Guid id)
-        {
-            return _context.Categories.Any(e => e.Id == id);
+            return Ok("Delete Succesfull");
         }
     }
 }

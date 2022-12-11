@@ -14,6 +14,8 @@ namespace CategoryJobsEF.Models
         public string Description { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        
+        public DateTime ModifedDate { get; set; }
 
         public virtual ICollection<Job> Jobs { get; set; }
     }

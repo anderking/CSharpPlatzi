@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CategoryJobsEF.EFconfig;
+using CategoryJobsEF.Services;
 
 namespace CategoryJobsEF
 {
@@ -28,14 +29,17 @@ namespace CategoryJobsEF
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EFconfigContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("dev")
-            ));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CategoryJobsEF", Version = "v1" });
             });
+
+            services.AddDbContext<EFconfigContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("dev")
+            ));
+            services.AddSingleton<IHelloWorldService, HelloWorldService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,8 @@ namespace CategoryJobsEF
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseIDMiddleware();
 
             app.UseEndpoints(endpoints =>
             {
