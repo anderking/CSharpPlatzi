@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace CategoryJobsEF.Models
 {
-    public class Category : EntityBase
+    public class FilterGetAll
     {
-        public string Description { get; set; }
+        public string Filter { get; set; }
 
-        public virtual ICollection<Job> Jobs { get; set; }
+        public string CreatedUserEmail { get; set; }
     }
 }
