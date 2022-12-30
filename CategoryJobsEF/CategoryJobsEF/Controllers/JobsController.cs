@@ -7,102 +7,158 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CategoryJobsEF.EFconfig;
 using CategoryJobsEF.Models;
+using CategoryJobsEF.Services;
 
 namespace CategoryJobsEF.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class JobsController : ControllerBase
-    {
-        private readonly EFconfigContext _context;
+      [Route("api/[controller]")]
+      [ApiController]
+      public class JobsController : ControllerBase
+      {
+            private readonly IJobService _service;
 
-        public JobsController(EFconfigContext context)
-        {
-            _context = context;
-        }
-
-        // GET: api/Jobs
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
-        {
-            return await _context.Jobs.ToListAsync();
-        }
-
-        // GET: api/Jobs/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Job>> GetJob(Guid id)
-        {
-            var job = await _context.Jobs.FindAsync(id);
-
-            if (job == null)
+            public JobsController(IJobService service)
             {
-                return NotFound();
+                  _service = service;
             }
 
-            return job;
-        }
-
-        // PUT: api/Jobs/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutJob(Guid id, Job job)
-        {
-            if (id != job.Id)
+            // GET: api/Jobs
+            [HttpGet]
+            public async Task<ActionResult<List<Job>>> GetAll()
             {
-                return BadRequest();
+                  List<Job> response = await _service.GetAll();
+                  return Ok(response);
             }
 
-            _context.Entry(job).State = EntityState.Modified;
+            // GET: api/Jobs/5
+            [HttpGet("{id}")]
+            public async Task<ActionResult<Job>> Get(Guid id)
+            {
+                  Job response = await _service.Get(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!JobExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                  if (response == null)
+                  {
+                        return NotFound();
+                  }
+
+                  return response;
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Jobs
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Job>> PostJob(Job job)
-        {
-            _context.Jobs.Add(job);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetJob", new { id = job.Id }, job);
-        }
-
-        // DELETE: api/Jobs/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteJob(Guid id)
-        {
-            var job = await _context.Jobs.FindAsync(id);
-            if (job == null)
+            // POST: api/Jobs
+            [HttpPost]
+            public async Task<ActionResult<Job>> Post(Job body)
             {
-                return NotFound();
+                  Job response = await _service.Save(body);
+                  return Ok(response);
             }
 
-            _context.Jobs.Remove(job);
-            await _context.SaveChangesAsync();
+            // PUT: api/Jobs/5
+            [HttpPut("{id}")]
+            public async Task<IActionResult> Put(Guid id, Job body)
+            {
+                  if (id != body.Id)
+                  {
+                        return BadRequest();
+                  }
 
-            return NoContent();
-        }
+                  Job response = await _service.Update(id, body);
+                  return Ok(response);
+            }
 
-        private bool JobExists(Guid id)
-        {
-            return _context.Jobs.Any(e => e.Id == id);
-        }
-    }
+            // DELETE: api/Jobs/5
+            [HttpDelete("{id}")]
+            public async Task<IActionResult> Delete(Guid id)
+            {
+                  Job response = await _service.Delete(id);
+                  if (response == null)
+                  {
+                        return NotFound();
+                  }
+                  return Ok("Delete Succesfull");
+            }
+
+            // DELETE: api/Jobs/5
+            [HttpDelete("DeleteLogic/{id}")]
+            public async Task<IActionResult> DeleteLogic(Guid id)
+            {
+                  Job response = await _service.DeleteLogic(id);
+                  if (response == null)
+                  {
+                        return NotFound();
+                  }
+                  return Ok("Delete Succesfull");
+            }
+
+            // DELETE: api/Jobs
+            [HttpDelete]
+            public async Task<ActionResult<List<Job>>> DeleteAll()
+            {
+                  List<Job> response = await _service.DeleteAll();
+                  return Ok(response);
+            }
+
+            // GET: api/GetAllByUser
+            [HttpGet("GetAllByUser/{email}")]
+            public async Task<ActionResult<List<Job>>> GetAllByUser(string email)
+            {
+                  List<Job> response = await _service.GetAllByUser(email);
+                  return Ok(response);
+            }
+
+            // GET: api/GetAllByActive
+            [HttpGet("GetAllByActive")]
+            public async Task<ActionResult<List<Job>>> GetAllByActive()
+            {
+                  List<Job> response = await _service.GetAllByActive();
+                  return Ok(response);
+            }
+
+            // GET: api/GetAllByInactive
+            [HttpGet("GetAllByInactive")]
+            public async Task<ActionResult<List<Job>>> GetAllByInactive()
+            {
+                  List<Job> response = await _service.GetAllByInactive();
+                  return Ok(response);
+            }
+
+            // GET: api/GetAllByModified
+            [HttpGet("GetAllByModified")]
+            public async Task<ActionResult<List<Job>>> GetAllByModified()
+            {
+                  List<Job> response = await _service.GetAllByModified();
+                  return Ok(response);
+            }
+
+            // GET: api/GetAllByNotModified
+            [HttpGet("GetAllByNotModified")]
+            public async Task<ActionResult<List<Job>>> GetAllByNotModified()
+            {
+                  List<Job> response = await _service.GetAllByNotModified();
+                  return Ok(response);
+            }
+
+            // GET: api/GetAllByDelete
+            [HttpGet("GetAllByDelete")]
+            public async Task<ActionResult<List<Job>>> GetAllByDelete()
+            {
+                  List<Job> response = await _service.GetAllByDelete();
+                  return Ok(response);
+            }
+
+            // GET: api/GetAllByNotDelete
+            [HttpGet("GetAllByNotDelete")]
+            public async Task<ActionResult<List<Job>>> GetAllByNotDelete()
+            {
+                  List<Job> response = await _service.GetAllByNotDelete();
+                  return Ok(response);
+            }
+
+            // POST: api/GetAllOrderByName
+            [HttpPost("GetAllOrderByName")]
+            public async Task<ActionResult<Job>> GetAllOrderByName(FilterGetAll payload)
+            {
+                  List<Job> response = await _service.GetAllOrderByName(payload);
+                  return Ok(response);
+            }
+      }
 }

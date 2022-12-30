@@ -10,32 +10,32 @@ using Microsoft.Extensions.Logging;
 namespace CategoryJobsEF.Services
 {
 
-      public interface ICRUDService
+      public interface ICRUDService<T>
       {
-            Task<List<Category>> GetAll();
+            Task<List<T>> GetAll();
 
-            Task<Category> Get(Guid id);
+            Task<T> Get(Guid id);
 
-            Task<Category> Save(Category body);
+            Task<T> Save(T body);
 
-            Task<Category> Update(Guid id, Category body);
+            Task<T> Update(Guid id, T body);
 
-            Task<Category> Delete(Guid id);
+            Task<T> Delete(Guid id);
 
-            Task<Category> DeleteLogic(Guid id);
+            Task<T> DeleteLogic(Guid id);
 
-            Task<List<Category>> GetAllByUser(string email);
+            Task<List<T>> GetAllByUser(string email);
 
-            Task<List<Category>> GetAllByActive();
+            Task<List<T>> GetAllByActive();
 
-            Task<List<Category>> GetAllByInactive();
+            Task<List<T>> GetAllByInactive();
 
-            Task<List<Category>> GetAllByModified();
+            Task<List<T>> GetAllByModified();
 
-            Task<List<Category>> GetAllByNotModified();
+            Task<List<T>> GetAllByNotModified();
 
-            Task<List<Category>> GetAllByDelete();
+            Task<List<T>> GetAllByDelete();
 
-            Task<List<Category>> GetAllByNotDelete();
+            Task<List<T>> GetAllByNotDelete();
       }
 }

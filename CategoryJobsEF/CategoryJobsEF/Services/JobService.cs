@@ -11,58 +11,58 @@ using Microsoft.Extensions.Logging;
 namespace CategoryJobsEF.Services
 {
 
-      public interface ICategoryService : ICRUDService<Category>
+      public interface IJobService : ICRUDService<Job>
       {
-            Task<List<Category>> GetAllOrderByName(FilterGetAll payload);
-            Task<List<Category>> DeleteAll();
+            Task<List<Job>> GetAllOrderByName(FilterGetAll payload);
+            Task<List<Job>> DeleteAll();
       }
 
-      public class CategoryService : ICategoryService
+      public class JobService : IJobService
       {
             private readonly EFconfigContext _context;
-            private readonly ILogger<CategoryService> _logger;
+            private readonly ILogger<JobService> _logger;
 
-            public CategoryService(EFconfigContext context, ILogger<CategoryService> logger)
+            public JobService(EFconfigContext context, ILogger<JobService> logger)
             {
                   _context = context;
                   _logger = logger;
             }
 
-            public async Task<List<Category>> GetAll()
+            public async Task<List<Job>> GetAll()
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.ToListAsync();
+                        items = await _context.Jobs.ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<Category> Get(Guid id)
+            public async Task<Job> Get(Guid id)
             {
-                  Category item;
+                  Job item;
 
                   try
                   {
-                        item = await _context.Categories.FindAsync(id);
+                        item = await _context.Jobs.FindAsync(id);
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return item;
             }
 
-            public async Task<Category> Save(Category body)
+            public async Task<Job> Save(Job body)
             {
                   try
                   {
@@ -70,7 +70,7 @@ namespace CategoryJobsEF.Services
                         body.CreatedDate = DateTime.Now;
                         body.StateModified = false;
                         body.StateDelete = false;
-                        List<Category> items = await GetAll();
+                        List<Job> items = await GetAll();
                         long.TryParse(items.Where(w => !string.IsNullOrWhiteSpace(w.Code)).Select(s => s.Code).Max(), out long codeMax);
                         body.Code = Tools.ConsecutiveText(codeMax + 1);
                         _context.Add(body);
@@ -78,24 +78,26 @@ namespace CategoryJobsEF.Services
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return body;
             }
 
-            public async Task<Category> Update(Guid id, Category body)
+            public async Task<Job> Update(Guid id, Job body)
             {
-                  Category item;
+                  Job item;
 
                   try
                   {
-                        item = _context.Categories.Find(id);
+                        item = _context.Jobs.Find(id);
 
                         if (item != null)
                         {
                               item.Name = body.Name;
+                              item.IdCategory = body.IdCategory;
+                              item.Priority = body.Priority;
                               item.Description = body.Description;
                               item.State = body.State;
                               item.ModifiedDate = DateTime.Now;
@@ -108,20 +110,20 @@ namespace CategoryJobsEF.Services
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return item;
             }
 
-            public async Task<Category> Delete(Guid id)
+            public async Task<Job> Delete(Guid id)
             {
-                  Category item;
+                  Job item;
 
                   try
                   {
-                        item = _context.Categories.Find(id);
+                        item = _context.Jobs.Find(id);
 
                         if (item != null)
                         {
@@ -131,20 +133,20 @@ namespace CategoryJobsEF.Services
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return item;
             }
 
-            public async Task<Category> DeleteLogic(Guid id)
+            public async Task<Job> DeleteLogic(Guid id)
             {
-                  Category item;
+                  Job item;
 
                   try
                   {
-                        item = _context.Categories.Find(id);
+                        item = _context.Jobs.Find(id);
 
                         if (item != null)
                         {
@@ -155,17 +157,17 @@ namespace CategoryJobsEF.Services
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return item;
             }
 
-            public async Task<List<Category>> DeleteAll()
+            public async Task<List<Job>> DeleteAll()
             {
-                  List<Category> items = await GetAll();
-                  List<Category> itemsDelete = new List<Category>();
+                  List<Job> items = await GetAll();
+                  List<Job> itemsDelete = new List<Job>();
 
                   try
                   {
@@ -181,135 +183,135 @@ namespace CategoryJobsEF.Services
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return itemsDelete;
             }
 
-            public async Task<List<Category>> GetAllByUser(string email)
+            public async Task<List<Job>> GetAllByUser(string email)
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.Where(x => x.CreatedUserEmail == email).ToListAsync();
+                        items = await _context.Jobs.Where(x => x.CreatedUserEmail == email).ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<List<Category>> GetAllByActive()
+            public async Task<List<Job>> GetAllByActive()
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.Where(x => x.State == true).ToListAsync();
+                        items = await _context.Jobs.Where(x => x.State == true).ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<List<Category>> GetAllByInactive()
+            public async Task<List<Job>> GetAllByInactive()
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.Where(x => x.State == false).ToListAsync();
+                        items = await _context.Jobs.Where(x => x.State == false).ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<List<Category>> GetAllByModified()
+            public async Task<List<Job>> GetAllByModified()
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.Where(x => x.StateModified == true).ToListAsync();
+                        items = await _context.Jobs.Where(x => x.StateModified == true).ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<List<Category>> GetAllByNotModified()
+            public async Task<List<Job>> GetAllByNotModified()
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.Where(x => x.StateModified == false).ToListAsync();
+                        items = await _context.Jobs.Where(x => x.StateModified == false).ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<List<Category>> GetAllByDelete()
+            public async Task<List<Job>> GetAllByDelete()
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.Where(x => x.StateDelete == true).ToListAsync();
+                        items = await _context.Jobs.Where(x => x.StateDelete == true).ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<List<Category>> GetAllByNotDelete()
+            public async Task<List<Job>> GetAllByNotDelete()
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
-                        items = await _context.Categories.Where(x => x.StateDelete == false).ToListAsync();
+                        items = await _context.Jobs.Where(x => x.StateDelete == false).ToListAsync();
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
                   return items;
             }
 
-            public async Task<List<Category>> GetAllOrderByName(FilterGetAll payload)
+            public async Task<List<Job>> GetAllOrderByName(FilterGetAll payload)
             {
-                  List<Category> items = new List<Category>();
+                  List<Job> items = new List<Job>();
 
                   try
                   {
@@ -343,7 +345,7 @@ namespace CategoryJobsEF.Services
                   }
                   catch (Exception e)
                   {
-                        _logger.LogInformation($"CategoryService: {e.Message}");
+                        _logger.LogInformation($"JobService: {e.Message}");
                         throw;
                   }
 
