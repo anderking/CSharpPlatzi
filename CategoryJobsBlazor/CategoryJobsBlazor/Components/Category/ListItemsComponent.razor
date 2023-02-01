@@ -1,0 +1,61 @@
+﻿@using Models
+@using Business
+@inject ICategoryService _categoryService
+@inject NavigationManager NavManager
+
+<div>
+    Total categorías registradas: @categories.Count
+</div>
+<hr />
+<a class="btn btn-primary mb-3" href="category/form">Create</a>
+@if (categories == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.Code</td>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td>@category.State</td>
+                    <td>
+                        <a class="btn btn-primary" href="category/form/@category.Id">Editar</a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" @onclick="() => Delete(category.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Category> categories = new List<Category>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await _categoryService.GetAll();
+    }
+
+    public async void Delete(Guid Id)
+    {
+        categories.RemoveAll(x => x.Id == Id);
+        await _categoryService.Delete(Id);
+    }
+}

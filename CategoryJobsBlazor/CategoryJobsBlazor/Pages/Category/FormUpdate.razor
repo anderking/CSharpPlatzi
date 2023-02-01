@@ -1,0 +1,16 @@
+﻿@page "/category/form/{Id}"
+
+<h3 class="text-center">Form Update</h3>
+<hr>
+
+<FormUpdateComponent Id="@Id" />
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Id = Id;
+    }
+}

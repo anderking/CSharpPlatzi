@@ -1,0 +1,54 @@
+﻿@using Models
+@using Business
+@inject ICategoryService _categoryService
+@inject NavigationManager NavManager
+
+<EditForm Model="@category">
+    <div class="form-row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>Nombre:</label>
+            <InputText @bind-Value="category.Name" class="form-control" />
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>Descripcion:</label>
+            <InputTextArea @bind-Value="category.Description" class="form-control"></InputTextArea>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>State:</label>
+            <InputCheckbox @bind-Value="category.State" />
+        </div>
+        <button class="btn btn-primary" @onclick="Update">Update</button>
+        <a class="btn btn-primary ml-3" href="category">Back</a>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    Category category = new Category();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(Id))
+        {
+            Guid id = new Guid(Id);
+            category = await _categoryService.Get(id);
+        }
+    }
+
+    public async void Update()
+    {
+        if (!string.IsNullOrEmpty(Id))
+        {
+            Guid id = new Guid(Id);
+            category.CreatedUserName = "Anderson Díaz";
+            category.CreatedUserEmail = "adiaz@gmail.com";
+            Category result = await _categoryService.Update(id, category);
+            if (result != null)
+            {
+                NavManager.NavigateTo("category");
+            }
+        }
+    }
+}
