@@ -21,9 +21,8 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("CategoryJobsBlazor.Models.Category", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -73,9 +72,8 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("CategoryJobsBlazor.Models.Job", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -96,8 +94,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<Guid>("IdCategory")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("IdCategory")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -135,9 +133,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("CategoryJobsBlazor.Models.Category", "Category")
                         .WithMany("Jobs")
-                        .HasForeignKey("IdCategory")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdCategory");
                 });
 #pragma warning restore 612, 618
         }

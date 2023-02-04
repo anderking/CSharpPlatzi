@@ -53,7 +53,7 @@ else
         categories = await _categoryService.GetAll();
     }
 
-    public async void Delete(Guid Id)
+    public async void Delete(string Id)
     {
         categories.RemoveAll(x => x.Id == Id);
         await _categoryService.Delete(Id);

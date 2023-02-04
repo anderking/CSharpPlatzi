@@ -11,7 +11,7 @@ namespace DataAccess.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Code = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     State = table.Column<bool>(nullable: false),
@@ -34,7 +34,7 @@ namespace DataAccess.Migrations
                 name: "Job",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Code = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     State = table.Column<bool>(nullable: false),
@@ -46,7 +46,7 @@ namespace DataAccess.Migrations
                     ModifiedDate = table.Column<DateTime>(nullable: false),
                     ModifiedUserName = table.Column<string>(nullable: true),
                     ModifiedUserEmail = table.Column<string>(nullable: true),
-                    IdCategory = table.Column<Guid>(nullable: false),
+                    IdCategory = table.Column<string>(nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
                     Priority = table.Column<int>(nullable: false)
                 },
@@ -58,7 +58,7 @@ namespace DataAccess.Migrations
                         column: x => x.IdCategory,
                         principalTable: "Category",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

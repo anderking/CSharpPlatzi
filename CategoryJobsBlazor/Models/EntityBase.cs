@@ -7,7 +7,7 @@ namespace CategoryJobsBlazor.Models
 {
     public class EntityBase
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Code { get; set; }
 

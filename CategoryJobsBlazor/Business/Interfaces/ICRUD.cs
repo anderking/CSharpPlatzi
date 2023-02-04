@@ -14,15 +14,15 @@ namespace CategoryJobsBlazor.Business
       {
             Task<List<T>> GetAll();
 
-            Task<T> Get(Guid id);
+            Task<T> Get(string id);
 
             Task<T> Save(T body);
 
-            Task<T> Update(Guid id, T body);
+            Task<T> Update(string id, T body);
 
-            Task<T> Delete(Guid id);
+            Task<T> Delete(string id);
 
-            Task<T> DeleteLogic(Guid id);
+            Task<T> DeleteLogic(string id);
 
             Task<List<T>> GetAllByUser(string email);
 

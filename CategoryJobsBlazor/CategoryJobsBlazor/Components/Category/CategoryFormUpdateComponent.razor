@@ -10,11 +10,11 @@
             <InputText @bind-Value="category.Name" class="form-control" />
         </div>
         <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <label>Descripcion:</label>
+            <label>Descripción:</label>
             <InputTextArea @bind-Value="category.Description" class="form-control"></InputTextArea>
         </div>
         <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <label>State:</label>
+            <label>Estado:</label>
             <InputCheckbox @bind-Value="category.State" />
         </div>
         <button class="btn btn-primary" @onclick="Update">Update</button>
@@ -32,8 +32,7 @@
     {
         if (!string.IsNullOrEmpty(Id))
         {
-            Guid id = new Guid(Id);
-            category = await _categoryService.Get(id);
+            category = await _categoryService.Get(Id);
         }
     }
 
@@ -41,10 +40,9 @@
     {
         if (!string.IsNullOrEmpty(Id))
         {
-            Guid id = new Guid(Id);
-            category.CreatedUserName = "Anderson Díaz";
-            category.CreatedUserEmail = "adiaz@gmail.com";
-            Category result = await _categoryService.Update(id, category);
+            category.ModifiedUserName = "Anderson Díaz";
+            category.ModifiedUserEmail = "adiaz@gmail.com";
+            Category result = await _categoryService.Update(Id, category);
             if (result != null)
             {
                 NavManager.NavigateTo("category");

@@ -33,7 +33,7 @@ namespace CategoryJobsBlazor.Business
                   return items;
             }
 
-            public async Task<Category> Get(Guid id)
+            public async Task<Category> Get(string id)
             {
                   Category item;
                   item = await _categoryRepository.Get(id);
@@ -46,19 +46,19 @@ namespace CategoryJobsBlazor.Business
                   return item;
             }
 
-            public async Task<Category> Update(Guid id, Category body)
+            public async Task<Category> Update(string id, Category body)
             {
                   Category item = await _categoryRepository.Update(id, body);
                   return item;
             }
 
-            public async Task<Category> Delete(Guid id)
+            public async Task<Category> Delete(string id)
             {
                   Category item = await _categoryRepository.Delete(id);
                   return item;
             }
 
-            public async Task<Category> DeleteLogic(Guid id)
+            public async Task<Category> DeleteLogic(string id)
             {
                   Category item = await _categoryRepository.DeleteLogic(id);
                   return item;

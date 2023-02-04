@@ -7,3 +7,5 @@ FundamentosEntityFrameWork: Aplicación para conectar una BD SQLServer con EF si
 CategoryJobsEF: Aplicación de Categories y Jobs con EF y Swagger API.
 
 CategoryJobsMVC: Aplicación de Categories y Jobs con MVC.
+
+CategoryJobsBlazor: Aplicación de Categories y Jobs con Blazor.

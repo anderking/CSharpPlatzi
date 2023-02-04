@@ -1,0 +1,64 @@
+﻿@using Models
+@using Business
+@inject IJobService _jobService
+@inject ICategoryService _categoryService
+@inject NavigationManager NavManager
+
+<EditForm Model="@job">
+    <div class="form-row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>Categoría:</label>
+            <InputSelect @bind-Value="job.IdCategory" class="form-control" >
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>Nombre:</label>
+            <InputText @bind-Value="job.Name" class="form-control" />
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>Descripción:</label>
+            <InputTextArea @bind-Value="job.Description" class="form-control"></InputTextArea>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>Prioridad:</label>
+            <InputSelect @bind-Value="job.Priority" class="form-control" >
+                <option value="@Priority.Low">Low</option>
+                <option value="@Priority.Medium">Medium</option>
+                <option value="@Priority.High">High</option>
+            </InputSelect>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <label>Estado:</label>
+            <InputCheckbox @bind-Value="job.State" />
+        </div>
+        <button class="btn btn-primary" @onclick="Save">Save</button>
+        <a class="btn btn-primary ml-3" href="job">Back</a>
+    </div>
+</EditForm>
+
+@code {
+    Job job = new Job();
+
+    private List<Category> categories = new List<Category>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await _categoryService.GetAll();
+        job.IdCategory = categories.FirstOrDefault().Id;
+    }
+
+    public async void Save()
+    {
+        job.CreatedUserName = "Anderson Díaz";
+        job.CreatedUserEmail = "adiaz@gmail.com";
+        Job result = await _jobService.Save(job);
+        if (result != null)
+        {
+            NavManager.NavigateTo("job");
+        }
+    }
+}

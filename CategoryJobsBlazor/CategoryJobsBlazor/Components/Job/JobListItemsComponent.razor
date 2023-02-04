@@ -1,0 +1,65 @@
+﻿@using Models
+@using Business
+@inject IJobService _jobService
+@inject NavigationManager NavManager
+
+<div>
+    Total jobs registrados: @jobs.Count
+</div>
+<hr />
+<a class="btn btn-primary mb-3" href="job/form">Create</a>
+@if (jobs == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in jobs)
+            {
+                <tr>
+                    <td>@job.Code</td>
+                    <td>@job.Category?.Name</td>
+                    <td>@job.Priority</td>
+                    <td>@job.Name</td>
+                    <td>@job.Description</td>
+                    <td>@job.State</td>
+                    <td>
+                        <a class="btn btn-primary" href="job/form/@job.Id">Editar</a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" @onclick="() => Delete(job.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Job> jobs = new List<Job>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobs = await _jobService.GetAll();
+    }
+
+    public async void Delete(string Id)
+    {
+        jobs.RemoveAll(x => x.Id == Id);
+        await _jobService.Delete(Id);
+    }
+}
